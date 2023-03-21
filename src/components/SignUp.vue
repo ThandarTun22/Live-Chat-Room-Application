@@ -16,7 +16,7 @@ export default {
             let displayName = ref("")
             let email = ref("");
             let password = ref("");
-            let error = ref(null);
+            let error = ref("");
             let signUp = async()=>{
                 // console.log(displayName.value, email.value, password.value)
                 try{
@@ -25,12 +25,14 @@ export default {
                if(!res){
                     throw new Error("could not create new user")
                }
+               res.user.updateProfile({displayName: displayName.value})
+               console.log(res.user);
+                // console.log(error.value)
                 }catch(err){
                     // console.log(err.message);
                     error.value = err.message;
                 }
-                // console.log(res.user);
-                console.log(error.value)
+                
             }
             return {displayName, email, password, signUp}
         }
