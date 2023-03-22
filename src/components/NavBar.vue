@@ -1,8 +1,8 @@
 <template>
-  <nav>
-    <div>
-        <p>Hi display name</p>
-        <p class="email">logged in as email</p>
+  <nav v-if="user">
+    <div >
+        <p>Hi {{user.displayName}}</p>
+        <p class="email">logged in as {{user.email}}</p>
     </div>
     <button @click="logout">Logout</button>
   </nav>
@@ -10,17 +10,21 @@
 
 <script>
 
-import { ref } from 'vue';
 import useLogout from "../composable/useLogout"
+import getUser from "../composable/getUser"
 export default {
     setup(){
+        
+        
         let {error, signOutAccount} = useLogout();
+        let {user} = getUser();
 
         let logout = async()=>{
            await signOutAccount();
            console.log("user logged out")
-        }
-        return {logout};
+        }  
+
+        return {logout, user};
     }
 }
 </script>
