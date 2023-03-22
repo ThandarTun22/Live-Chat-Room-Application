@@ -14,7 +14,7 @@ import {auth} from "../firebase/config"
 import useLogin from '../composable/useLogin'
 
 export default {
-        setup(){
+        setup(props, context){
             let email = ref("");
             let password = ref("");
             
@@ -24,7 +24,8 @@ export default {
                 // console.log(displayName.value, email.value, password.value)
                 let res =  await signIn(email.value, password.value)
                 if (res){
-                  console.log(res.user)
+                  // console.log(res.user)
+                  context.emit("enterChatroom")
                 }
                 
             }
